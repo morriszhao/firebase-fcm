@@ -1,0 +1,61 @@
+
+<script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-messaging.js"></script>
+<script>
+
+    var firebaseConfig = {
+        apiKey: "",
+        authDomain: "",
+        databaseURL: "",
+        projectId: "",
+        storageBucket: "",
+        messagingSenderId: "",
+        appId: "",
+        measurementId: ""
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+    messaging.usePublicVapidKey('');
+
+    messaging.onTokenRefresh(() => {
+        messaging.getToken().then((refreshedToken) => {
+            console.log('Token refreshed: ' + refreshedToken);
+            sendTokenToServer(refreshedToken);
+        }).catch((err) => {
+            console.log('Unable to retrieve refreshed token ', err);
+        });
+    });
+
+    messaging.onMessage((payload) => {
+        console.log('Message received. ', payload);
+
+    });
+
+
+    function resetUI() {
+        messaging.getToken().then((currentToken) => {
+            if (currentToken) {
+                console.log('current token: '+currentToken);
+                sendTokenToServer(currentToken);
+            } else {
+                console.log('No Instance ID token available. Request permission to generate one.');
+            }
+        }).catch((err) => {
+            console.log('An error occurred while retrieving token. ', err);
+        });
+    }
+
+
+    function sendTokenToServer(currentToken) {
+      var local_storage_token = window.localStorage.getItem('current_token');
+      if (local_storage_token != currentToken){
+        window.localStorage.setItem('current_token', currentToken);
+
+        //todo  ajax
+      }
+    }
+    resetUI();
+
+</script>
