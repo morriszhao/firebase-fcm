@@ -1,6 +1,6 @@
 {
   "name": "morriszhao/firebase-fcm",
-  "description": "php fcm firebase  cloud message push",
+  "description": "php fcm firebase  cloud message push h5 notification web push server worker",
   "type": "library",
   "require": {
     "guzzlehttp/guzzle": "^6.5",
