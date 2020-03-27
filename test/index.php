@@ -1,18 +1,16 @@
 <?php
 
+use zhaolm\phpfcm\Client;
+use zhaolm\phpfcm\Message;
+use zhaolm\phpfcm\Notification;
+use zhaolm\phpfcm\Recipient\Device;
+use zhaolm\phpfcm\Recipient\Topic;
+use zhaolm\phpfcm\TopicOption;
 
-
-
-
-
-define('TEST_DIR', dirname(__FILE__)) ;
-require TEST_DIR.'/../../init.php';
-
-
+require_once 'vendor/autoload.php';
 
 
 echo '<pre>';
-
 //由于调用firebase服务 需要进行翻墙、  此处请改成你的翻墙代理
 putenv('HTTPS_PROXY=http://127.0.0.1:8580');
 
@@ -21,6 +19,9 @@ putenv('HTTPS_PROXY=http://127.0.0.1:8580');
 
 //项目设置->云消息传递->服务器秘钥
 $apiKey = '';
+//浏览器注册token
+$device = '';
+
 $client = new Client();
 $client->setApiKey($apiKey);
 $client->injectHttpClient(new \GuzzleHttp\Client(['verify'=>false]));
@@ -33,7 +34,7 @@ $note = new Notification('nihao', 'zhangsan');
 $note->setColor('#ffffff')
     ->setBadge(1);
 $message = new Message();
-$message->addRecipient(new Device('da1A-DYT0_KCFxSqQ8p_9r:APA91bGsV4Ky0dA0ZUGbMh0pA-ED1L32IKhEgZtnBAMgetmob9zWEOe-rnuhUWrcVf23rwxHi8xBV9EyC5WBBPrHqzlhe6SwipcEF0oNaWcLxwWZz2-s6e8ogcRM6XsdruTm6R5728-0'));
+$message->addRecipient(new Device($device));
 
 /**
  * tag  点击跳转页面
@@ -70,7 +71,11 @@ $message->setNotification($note)
  * 将注册令牌添加到主题
  */
 $topic = new TopicOption('news');
-$topic->addDevice([YOUR_BROKER_REGISTER_TOKEN]);
+$topic->addDevice([
+    $device,
+    $device,
+    $device
+]);
 $client->setProxyApiUrl($topic->getSubscribeUrl());
 //$reponse = $client->send($topic);
 
@@ -80,7 +85,10 @@ $client->setProxyApiUrl($topic->getSubscribeUrl());
  */
 
 $topic = new TopicOption('news');
-$topic->addDevice([YOUR_BROKER_REGISTER_TOKEN]);
+$topic->addDevice([
+    $device,
+    $device
+]);
 $client->setProxyApiUrl($topic->getUnSubscribeUrl());
 //$reponse = $client->send($topic);
 
