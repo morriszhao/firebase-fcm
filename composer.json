@@ -13,7 +13,7 @@
       "email": "1269665498@qq.com"
     }
   ],
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
       "zhaolm\\phpfcm\\": "src/"
