@@ -1,0 +1,22 @@
+{
+  "name": "zhaolm/firebase-fcm-php",
+  "description": "php fcm firebase  cloud message push",
+  "type": "library",
+  "require": {
+    "guzzlehttp/guzzle": "^6.5",
+    "php": ">=5.5"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "zhaolm",
+      "email": "1269665498@qq.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "zhaolm\\phpfcm": "src/"
+    }
+  }
+}
