@@ -1,5 +1,5 @@
 {
-  "name": "zhaolm/firebase-fcm-php",
+  "name": "morriszhao/firebase-fcm",
   "description": "php fcm firebase  cloud message push",
   "type": "library",
   "require": {
